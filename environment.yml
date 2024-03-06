@@ -1,0 +1,15 @@
+name: exotic
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - pytorch-cuda=11.8
+  - torchvision
+  - torchaudio
+  - pytorch==2.0.0
+  - cudatoolkit
+  - cuda
+  - botorch
+  - arviz
+  - plotly
+prefix: /home/lwelzel/miniconda3/envs/exotic
