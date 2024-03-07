@@ -150,25 +150,27 @@ class SafetyMarginDNN(nn.Module):
 
         dropout = 0.5
         self.linear_model = nn.Sequential(
-            nn.Linear(324, 512),
+            nn.Linear(324, 64),
             nn.ELU(),
-            nn.Linear(512, 1024),
+            nn.Linear(64, 32),
             nn.ELU(),
-            nn.Linear(1024, 512),
+            nn.Linear(32, 16),
             nn.ELU(),
-            nn.Linear(512, 256),
+            nn.Linear(16, 8),
             nn.ELU(),
-            nn.Linear(256, 256),
+            nn.Linear(8, 8),
             nn.ELU(),
-            nn.Linear(256, 256),
+            nn.Linear(8, 8),
             nn.ELU(),
-            nn.Linear(256, 128),
+            nn.Linear(8, 8),
             nn.ELU(),
-            nn.Linear(128, 128),
+            nn.Linear(8, 8),
             nn.ELU(),
-            nn.Linear(128, 64),
+            nn.Linear(8, 8),
             nn.ELU(),
-            nn.Linear(64, 1)
+            nn.Linear(8, 8),
+            nn.ELU(),
+            nn.Linear(8, 1),
         )
 
     def forward(self, x):
@@ -251,6 +253,9 @@ if __name__ == "__main__":
                 val_dataloaders=validation_dataloader)
 
     trainer.test(model, dataloaders=test_dataloader)
+
+    trainer.save_checkpoint(Path("./data/lightning_model.ckpt"))
+    torch.save(model.state_dict(), Path("./data/lightning_module_state_dict.pt"))
 
     pred = trainer.predict(model, test_dataloader)
     pred = torch.concat(pred, dim=0).flatten()

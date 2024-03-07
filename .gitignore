@@ -303,4 +303,6 @@ fabric.properties
 *.hdf5
 *.npy
 *.csv#
+*.ckpt
+*.pt
 /data
